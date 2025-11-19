@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVX Explorers Club</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f0f0f0; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .logo { width: 100px; height: auto; } /* Tu logo */
+        form { display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 0 auto; }
+        input, select, button { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #F2A900; color: white; border: none; cursor: pointer; font-weight: bold; }
+        #card { 
+            background: url('assets/tarjeta-fondo.png') no-repeat center/cover; /* Tu fondo jaguar */
+            height: 280px; border-radius: 15px; padding: 20px; color: white; text-align: center; position: relative; box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+        }
+        #card h2 { margin: 0 0 10px 0; font-size: 24px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        #card p { margin: 5px 0; }
+        .tabs { display: flex; justify-content: space-around; border-bottom: 1px solid #ccc; margin-bottom: 20px; }
+        .tab { background: none; border: none; padding: 10px; cursor: pointer; flex: 1; }
+        .tab.active { border-bottom: 2px solid #F2A900; }
+        #tab-content { padding: 20px; text-align: center; }
+        ul { text-align: left; max-width: 300px; margin: 0 auto; }
+        li { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="onboarding" class="screen active">
+            <div class="header">
+                <img src="assets/logo-zigzag.png" alt="AVX" class="logo">
+                <h1>¡Bienvenido al AVX Explorers Club!</h1>
+                <p>Regístrate para tu tarjeta digital gratis.</p>
+            </div>
+            <form id="registerForm">
+                <input type="text" id="fullName" placeholder="Nombre completo" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="tel" id="whatsapp" placeholder="WhatsApp (opcional)">
+                <select id="country" required>
+                    <option value="">País</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canadá</option>
+                    <option value="Germany">Alemania</option>
+                    <option value="France">Francia</option>
+                    <option value="Other">Otros</option>
+                </select>
+                <label style="display: flex; align-items: center; gap: 5px; font-size: 14px;">
+                    <input type="checkbox" id="terms" required> Acepto términos
+                </label>
+                <button type="submit">Generar Tarjeta</button>
+            </form>
+        </div>
+        <div id="mainScreen" class="screen">
+            <nav class="tabs">
+                <button onclick="showTab('card')" class="tab active">Tarjeta</button>
+                <button onclick="showTab('editions')" class="tab">Ediciones</button>
+                <button onclick="showTab('partners')" class="tab">Aliados</button>
+                <button onclick="showTab('giveaways')" class="tab">Sorteos</button>
+            </nav>
+            <div id="tab-content"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const country = document.getElementById('country').value;
+            const code = 'AVX-2026-' + Math.floor(Math.random() * 10000);
+            const date = new Date().toLocaleDateString();
+            const data = { fullName, email, whatsapp, country, code, date };
+            localStorage.setItem('avxUser', JSON.stringify(data));
+            document.getElementById('onboarding').classList.remove('active');
+            document.getElementById('mainScreen').classList.add('active');
+            showTab('card');
+        });
+        function showTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            const content = document.getElementById('tab-content');
+            if (tab === 'card') {
+                const data = JSON.parse(localStorage.getItem('avxUser'));
+                content.innerHTML = `
+                    <div id="card">
+                        <h2>${data.fullName}</h2>
+                        <p>${data.code}</p>
+                        <p>Lifetime Member</p>
+                        <p>Fecha: ${data.date}</p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=${data.code}&size=150x150" alt="QR" style="margin: 10px 0; border-radius: 5px; background: white; padding: 5px;">
+                        <p style="font-style: italic; font-size: 14px; opacity: 0.9;">For Explorers</p>
+                    </div>
+                    <button onclick="if (navigator.share) navigator.share({title: 'Mi Tarjeta AVX', url: window.location.href}); else alert('Tarjeta compartida!');" style="margin-top: 20px; padding: 12px; background: #F2A900; color: white; border: none; border-radius: 8px;">Compartir Tarjeta</button>
+                `;
+            } else if (tab === 'editions') {
+                content.innerHTML = '<p>Edición 01 - Enero 2026 (PDF interactivo disponible pronto)</p>';
+            } else if (tab === 'partners') {
+                content.innerHTML = '<ul><li>Desafío Adventure - 20% off Rafting</li><li>Nayara - 15% off Glamping</li><li>Sky Adventures - 10% off Canopy</li><li>Pacuare Lodge - 25% off Lodge</li></ul>';
+            } else if (tab === 'giveaways') {
+                content.innerHTML = '<p>Sorteo activo: Salto en paracaídas. ¡Ya estás participando!</p>';
+            }
+        }
+        if (localStorage.getItem('avxUser')) {
+            document.getElementById('onboarding').classList.remove('active');
+            document.getElementById('mainScreen').classList.add('active');
+            showTab('card');
+        }
+    </script>
+</body>
+</html>
