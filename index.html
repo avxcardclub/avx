@@ -6,17 +6,18 @@
     <title>AVX Explorers Club</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #2A6B3D; color: white; } /* Verde selva para contraste */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #2A6B3D; color: white; }
         .screen { display: none; }
         .screen.active { display: block; }
         .header { text-align: center; margin-bottom: 20px; }
-        .logo { width: 120px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); } /* Mejor contraste para logo */
+        .logo { width: 120px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
         form { display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 0 auto; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         input, select, button { padding: 12px; border: 1px solid #F2A900; border-radius: 5px; font-size: 16px; }
-        button { background: #F2A900; color: black; border: none; cursor: pointer; font-weight: bold; text-shadow: none; }
+        button { background: #F2A900; color: black; border: none; cursor: pointer; font-weight: bold; }
         #card { 
-            background: url('https://example-host/tarjeta-fondo.png') no-repeat center/cover; /* Tu fondo jaguar – reemplaza con tu link real */
-            height: 300px; border-radius: 15px; padding: 20px; color: white; text-align: center; position: relative; box-shadow: 0 8px 16px rgba(0,0,0,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); } /* Alto contraste con sombra */
+            background: url('tarjeta-fondo.png') no-repeat center/cover; /* Imagen en raíz */
+            height: 300px; border-radius: 15px; padding: 20px; color: white; text-align: center; position: relative; box-shadow: 0 8px 16px rgba(0,0,0,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+        }
         #card h2 { margin: 0 0 10px 0; font-size: 28px; font-weight: bold; }
         #card p { margin: 5px 0; font-size: 16px; font-weight: bold; }
         .tabs { display: flex; justify-content: space-around; border-bottom: 1px solid #F2A900; margin-bottom: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; }
@@ -31,7 +32,7 @@
     <div id="app">
         <div id="onboarding" class="screen active">
             <div class="header">
-                <img src="https://example-host/logo-zigzag.png" alt="AVX Explorers Club" class="logo"> <!-- Tu logo naranja -->
+                <img src="logo-zigzag.png" alt="AVX" class="logo"> <!-- Imagen en raíz -->
                 <h1>Welcome to AVX Explorers Club!</h1>
                 <p>Sign up for your free digital card.</p>
             </div>
