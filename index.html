@@ -59,14 +59,15 @@
     </div>
 </div>
 
-<!-- FORMULARIO OCULTO QUE ENVÍA A TU GOOGLE SHEET -->
+<!-- FORMULARIO OCULTO QUE ENVÍA A TU GOOGLE FORM REAL -->
 <iframe name="hidden_iframe" style="display:none;"></iframe>
-<form id="googleForm" target="hidden_iframe" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSeZ9Y1u4t5i8oP9xQ2wL7vK3mN6jH8sR0tYcV2bX1qW3eF4g/formResponse" style="display:none;">
-    <input name="entry.234567890" id="gName">
-    <input name="entry.345678901" id="gEmail">
-    <input name="entry.456789012" id="gWhats">
-    <input name="entry.567890123" id="gCountry">
-    <input name="entry.678901234" id="gCode">
+<form id="googleForm" target="hidden_iframe" method="POST" 
+      action="https://docs.google.com/forms/d/e/1FAIpQLSc0ewRAMawrlDaCbMUKkYfClE_v9twmeEVx3GiXfA6A6-DAjA/formResponse" style="display:none;">
+    <input name="entry.213951169" id="gName">     <!-- Full Name -->
+    <input name="entry.1289119352" id="gEmail">   <!-- Email -->
+    <input name="entry.345678901" id="gWhats">    <!-- WhatsApp -->
+    <input name="entry.456789012" id="gCountry">  <!-- Country -->
+    <input name="entry.567890123" id="gCode">     <!-- AVX Code -->
 </form>
 
 <script>
@@ -79,7 +80,7 @@
         const code = 'AVX-'+Date.now().toString().slice(-6);
         const date = new Date().toLocaleDateString('en-GB');
 
-        // 1. Envía al Google Sheet (invisible)
+        // 1. Envía al Google Form real (invisible)
         document.getElementById('gName').value = name;
         document.getElementById('gEmail').value = email;
         document.getElementById('gWhats').value = whats;
@@ -87,7 +88,7 @@
         document.getElementById('gCode').value = code;
         document.getElementById('googleForm').submit();
 
-        // 2. Guarda local y muestra tarjeta (igual que antes)
+        // 2. Guarda local y muestra tarjeta
         localStorage.setItem('avxUser',JSON.stringify({fullName:name,code,date}));
         document.getElementById('onboarding').classList.remove('active');
         document.getElementById('mainScreen').classList.add('active');
