@@ -17,15 +17,17 @@
         .tabs{display:flex;margin:35px 0 15px;border-bottom:3px solid #F2A900;border-radius:12px 12px 0 0;overflow:hidden}
         .tab{flex:1;padding:16px;background:rgba(255,255,255,.12);border:none;color:white;font-weight:bold;cursor:pointer}
         .tab.active{background:#F2A900;color:black}
-        #tab-content{background:rgba(255,255,255,.15);padding:30px;border-radius:0 0 18px 18px;box-shadow:0 10px 25px rgba(0,0,0,.4);min-height:420px}
+        #tab-content{background:rgba(255,255,255,.15);padding:30px;border-radius:0 0 18px 18px;box-shadow:0 10px 25px rgba(0,0,0,.4);min-height:480px}
         #card{
-            background:url('https://i.imgur.com/pMP3E1v.png') center/cover no-repeat;
-            height:380px;border-radius:25px;padding:35px 20px;color:white;position:relative;
-            box-shadow:0 12px 30px rgba(0,0,0,.6);text-shadow:2px 2px 6px rgba(0,0,0,.8)
+            background:url('https://i.imgur.com/edYzfwb.png') center/cover no-repeat;
+            height:420px;border-radius:28px;padding:40px 20px;color:white;position:relative;
+            box-shadow:0 15px 35px rgba(0,0,0,.7);text-shadow:2px 2px 8px rgba(0,0,0,.9);
+            animation:appear 0.8s ease-out forwards;opacity:0;transform:scale(0.92)
         }
-        #card h2{font-size:36px;margin:15px 0}
-        #card p{font-size:20px;font-weight:bold;margin:8px 0}
-        .qr{background:white;padding:10px;border-radius:12px;margin:20px auto;width:170px}
+        @keyframes appear{to{opacity:1;transform:scale(1)}}
+        #card h2{font-size:38px;margin:20px 0}
+        #card p{font-size:21px;font-weight:bold;margin:10px 0}
+        .qr{background:white;padding:12px;border-radius:14px;margin:25px auto;width:180px}
     </style>
 </head>
 <body>
@@ -66,6 +68,7 @@
         document.getElementById('onboarding').classList.remove('active');
         document.getElementById('mainScreen').classList.add('active');
         showTab('card');
+        setTimeout(()=>{document.getElementById('card').scrollIntoView({behavior:"smooth",block:"center"});},300);
     });
 
     function showTab(t){
@@ -80,22 +83,23 @@
                     <p>${u.code}</p>
                     <p>Lifetime Member</p>
                     <p>Since ${u.date}</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=${u.code}&size=170x170" class="qr" alt="QR">
-                    <p style="font-style:italic;margin-top:20px;font-size:18px;">For Explorers</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=${u.code}&size=180x180" class="qr" alt="QR">
+                    <p style="font-style:italic;margin-top:25px;font-size:19px;">For Explorers</p>
                 </div>
                 <button onclick="navigator.share?.({title:'My AVX Card',url:location.href})||alert('Card shared!')"
-                        style="margin-top:25px;padding:16px;background:#F2A900;border:none;border-radius:12px;width:100%;font-weight:bold;font-size:18px;">
+                        style="margin-top:30px;padding:18px;background:#F2A900;border:none;border-radius:14px;width:100%;font-weight:bold;font-size:19px;">
                     Share Card
                 </button>`;
-        }else if(t==='editions')c.innerHTML='<p style="font-size:18px">Edition 01 – January 2026<br>Interactive PDF coming soon</p>';
-        else if(t==='partners')c.innerHTML='<ul style="text-align:left;font-size:17px"><li>Desafío Adventure – 20% off</li><li>Nayara Resorts – 15% off</li><li>Sky Adventures – 10% off</li><li>Pacuare Lodge – 25% off</li></ul>';
-        else if(t==='giveaways')c.innerHTML='<p style="font-size:18px">Active Giveaway: Tandem Skydive<br>You are already entered!</p>';
+        }else if(t==='editions')c.innerHTML='<p style="font-size:19px">Edition 01 – January 2026<br>Interactive PDF coming soon</p>';
+        else if(t==='partners')c.innerHTML='<ul style="text-align:left;font-size:18px"><li>Desafío Adventure – 20% off</li><li>Nayara Resorts – 15% off</li><li>Sky Adventures – 10% off</li><li>Pacuare Lodge – 25% off</li></ul>';
+        else if(t==='giveaways')c.innerHTML='<p style="font-size:19px">Active Giveaway: Tandem Skydive<br>You are already entered!</p>';
     }
 
     if(localStorage.getItem('avxUser')){
         document.getElementById('onboarding').classList.remove('active');
         document.getElementById('mainScreen').classList.add('active');
         showTab('card');
+        setTimeout(()=>{document.getElementById('card').scrollIntoView({behavior:"smooth"});},100);
     }
 </script>
 </body>
