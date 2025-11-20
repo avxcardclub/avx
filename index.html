@@ -5,51 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVX Explorers Club</title>
     <style>
-        * { box-sizing: border-box; margin:0; padding:0; }
-        body { 
-            font-family: 'Arial', sans-serif; 
-            background: #2A6B3D; 
-            color: white; 
-            min-height: 100vh; 
-            padding: 20px 10px;
-            text-align: center;
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;background:#2A6B3D;color:white;min-height:100vh;padding:20px 10px;text-align:center}
+        .c{max-width:380px;margin:0 auto}
+        .logo{width:140px;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,.6)}
+        h1{margin:20px 0 10px;font-size:28px}
+        form{background:rgba(255,255,255,.15);padding:30px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.4)}
+        input,select,button{width:100%;padding:15px;margin:10px 0;border:none;border-radius:10px;font-size:17px}
+        input,select{border:2px solid #F2A900;background:white;color:#333}
+        button{background:#F2A900;color:black;font-weight:bold;cursor:pointer}
+        .tabs{display:flex;margin:35px 0 15px;border-bottom:3px solid #F2A900;border-radius:12px 12px 0 0;overflow:hidden}
+        .tab{flex:1;padding:16px;background:rgba(255,255,255,.12);border:none;color:white;font-weight:bold;cursor:pointer}
+        .tab.active{background:#F2A900;color:black}
+        #tab-content{background:rgba(255,255,255,.15);padding:30px;border-radius:0 0 18px 18px;box-shadow:0 10px 25px rgba(0,0,0,.4);min-height:420px}
+        #card{
+            background:url('https://i.imgur.com/pMP3E1v.png') center/cover no-repeat;
+            height:380px;border-radius:25px;padding:35px 20px;color:white;position:relative;
+            box-shadow:0 12px 30px rgba(0,0,0,.6);text-shadow:2px 2px 6px rgba(0,0,0,.8)
         }
-        .container { max-width: 380px; margin: 0 auto; }
-        .header { margin-bottom: 30px; }
-        .logo { width: 140px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-        h1 { margin: 20px 0 10px; font-size: 28px; }
-        form { 
-            background: rgba(255,255,255,0.15); 
-            padding: 30px; 
-            border-radius: 18px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
-        }
-        input, select, button {
-            width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 10px; font-size: 17px;
-        }
-        input, select { border: 2px solid #F2A900; background: white; color: #333; }
-        button { background: #F2A900; color: black; font-weight: bold; cursor: pointer; }
-        .tabs { display: flex; margin: 35px 0 15px; border-bottom: 3px solid #F2A900; border-radius: 12px 12px 0 0; overflow: hidden; }
-        .tab { flex: 1; padding: 16px; background: rgba(255,255,255,0.12); border: none; color: white; font-weight: bold; cursor: pointer; }
-        .tab.active { background: #F2A900; color: black; }
-        #tab-content { background: rgba(255,255,255,0.15); padding: 30px; border-radius: 0 0 18px 18px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); min-height: 420px; }
-        #card {
-            background: url('https://raw.githubusercontent.com/avxcardclub/avx/main/assets/cardclub.png') center/cover no-repeat;
-            height: 380px; border-radius: 25px; padding: 35px 20px;
-            color: white; text-align: center; position: relative;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
-        }
-        #card h2 { font-size: 36px; margin: 15px 0; }
-        #card p { font-size: 20px; font-weight: bold; margin: 8px 0; }
-        .qr { background: white; padding: 10px; border-radius: 12px; margin: 20px auto; width: 170px; }
+        #card h2{font-size:36px;margin:15px 0}
+        #card p{font-size:20px;font-weight:bold;margin:8px 0}
+        .qr{background:white;padding:10px;border-radius:12px;margin:20px auto;width:170px}
     </style>
 </head>
 <body>
-<div class="container">
+<div class="c">
     <div id="onboarding" class="screen active">
         <div class="header">
-            <img src="https://raw.githubusercontent.com/avxcardclub/avx/main/assets/logoavx.png" alt="AVX" class="logo">
+            <img src="https://i.imgur.com/N2KXmYp.png" alt="AVX" class="logo">
             <h1>Welcome to AVX Explorers Club!</h1>
             <p>Free lifetime digital membership</p>
         </div>
@@ -66,7 +49,7 @@
     <div id="mainScreen" class="screen">
         <div class="tabs">
             <button class="tab active" onclick="showTab('card')">Card</button>
-            <button class=" "tab" onclick="showTab('editions')">Editions</button>
+            <button class="tab" onclick="showTab('editions')">Editions</button>
             <button class="tab" onclick="showTab('partners')">Partners</button>
             <button class="tab" onclick="showTab('giveaways')">Giveaways</button>
         </div>
@@ -75,44 +58,41 @@
 </div>
 
 <script>
-    document.getElementById('registerForm').addEventListener('submit', e => {
-        e.preventDefault();
-        const data = {
-            fullName: document.getElementById('fullName').value.trim(),
-            code: 'AVX-' + Date.now().toString().slice(-6),
-            date: new Date().toLocaleDateString('en-GB')
-        };
-        localStorage.setItem('avxUser', JSON.stringify(data));
+    document.getElementById('registerForm').addEventListener('submit',e=>{e.preventDefault();
+        const data={fullName:document.getElementById('fullName').value.trim(),
+                    code:'AVX-'+Date.now().toString().slice(-6),
+                    date:new Date().toLocaleDateString('en-GB')};
+        localStorage.setItem('avxUser',JSON.stringify(data));
         document.getElementById('onboarding').classList.remove('active');
         document.getElementById('mainScreen').classList.add('active');
         showTab('card');
     });
 
-    function showTab(tab) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    function showTab(t){
+        document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
         event.target.classList.add('active');
-        const content = document.getElementById('tab-content');
-        const user = JSON.parse(localStorage.getItem('avxUser'));
-        if (tab === 'card') {
-            content.innerHTML = `
+        const c=document.getElementById('tab-content');
+        const u=JSON.parse(localStorage.getItem('avxUser'));
+        if(t==='card'){
+            c.innerHTML=`
                 <div id="card">
-                    <h2>${user.fullName}</h2>
-                    <p>${user.code}</p>
+                    <h2>${u.fullName}</h2>
+                    <p>${u.code}</p>
                     <p>Lifetime Member</p>
-                    <p>Since ${user.date}</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=${user.code}&size=170x170" class="qr" alt="QR">
-                    <p style="font-style:italic; margin-top:20px; font-size:18px;">For Explorers</p>
+                    <p>Since ${u.date}</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=${u.code}&size=170x170" class="qr" alt="QR">
+                    <p style="font-style:italic;margin-top:20px;font-size:18px;">For Explorers</p>
                 </div>
-                <button onclick="navigator.share?.({title:'My AVX Card', url:location.href}) || alert('Card shared!')" 
-                        style="margin-top:25px; padding:16px; background:#F2A900; border:none; border-radius:12px; width:100%; font-weight:bold; font-size:18px;">
+                <button onclick="navigator.share?.({title:'My AVX Card',url:location.href})||alert('Card shared!')"
+                        style="margin-top:25px;padding:16px;background:#F2A900;border:none;border-radius:12px;width:100%;font-weight:bold;font-size:18px;">
                     Share Card
                 </button>`;
-        } else if (tab === 'editions') content.innerHTML = '<p style="font-size:18px;">Edition 01 – January 2026<br>Interactive PDF coming soon</p>';
-        else if (tab === 'partners') content.innerHTML = '<ul style="text-align:left; font-size:17px;"><li>Desafío Adventure – 20% off</li><li>Nayara Resorts – 15% off</li><li>Sky Adventures – 10% off</li><li>Pacuare Lodge – 25% off</li></ul>';
-        else if (tab === 'giveaways') content.innerHTML = '<p style="font-size:18px;">Active Giveaway: Tandem Skydive<br>You are already entered!</p>';
+        }else if(t==='editions')c.innerHTML='<p style="font-size:18px">Edition 01 – January 2026<br>Interactive PDF coming soon</p>';
+        else if(t==='partners')c.innerHTML='<ul style="text-align:left;font-size:17px"><li>Desafío Adventure – 20% off</li><li>Nayara Resorts – 15% off</li><li>Sky Adventures – 10% off</li><li>Pacuare Lodge – 25% off</li></ul>';
+        else if(t==='giveaways')c.innerHTML='<p style="font-size:18px">Active Giveaway: Tandem Skydive<br>You are already entered!</p>';
     }
 
-    if (localStorage.getItem('avxUser')) {
+    if(localStorage.getItem('avxUser')){
         document.getElementById('onboarding').classList.remove('active');
         document.getElementById('mainScreen').classList.add('active');
         showTab('card');
